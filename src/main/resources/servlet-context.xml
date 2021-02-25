@@ -22,5 +22,5 @@
 	</beans:bean>
 	
 	<!-- <context:component-scan base-package="org.spring.blog" /> -->
-	<context:component-scan base-package="org.spring.blog.controller" />
+	<context:component-scan base-package="org.spring.blog.board.controller" />
 </beans:beans>
