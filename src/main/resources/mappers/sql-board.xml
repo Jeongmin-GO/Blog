@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring.board.BoardMapper">
+	<select id="selectBoardList" resultType="org.spring.blog.board.vo.BoardVO">
+		SELECT
+			bno,
+			title,
+			view_cnt,
+			reg_date
+		FROM
+			board
+	</select>
+	
+	<select id="selectBoardDetail" resultType="org.spring.blog.board.vo.BoardVO">
+		SELECT
+			bno, category, title, content, tag, view_cnt, reg_id, reg_date, edit_date
+		FROM
+			board
+		WHERE
+			bno = #{bno}
+	</select>
+	
+	<insert id="insertBoard" parameterType="org.spring.blog.board.vo.BoardVO">
+		INSERT INTO board(category, title, content, tag, view_cnt, reg_id, reg_date)
+		VALUES (#{category}, #{title}, #{content}, #{tag}, 0, #{reg_id}, now())
+	</insert>
+	
+	<update id="updateBoard" parameterType="org.spring.blog.board.vo.BoardVO">
+		UPDATE board SET
+			category = #{category},
+			title = #{title},
+			content = #{content},
+			tag = #{tag},
+			edit_date = now()
+		WHERE
+			bno=#{bno}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		WHERE bno=#{bno}
+	</delete>
+	
+	<update id="updateViewCnt" parameterType="org.spring.blog.board.vo.BoardVO">
+		UPDATE board SET
+			view_cnt = view_cnt+1
+		WHERE
+			bno = #{bno}
+	</update>
+</mapper>

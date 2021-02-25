@@ -26,7 +26,7 @@
     <!-- mybatis SqlSessionFactoryBean -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
-        <property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
+        <property name="mapperLocations" value="classpath:/mappers/**/sql-*.xml" />
     </bean>
     
     <!-- SqlSession Template 설정 -->
@@ -34,4 +34,7 @@
 		<constructor-arg name="sqlSessionFactory" ref="SqlSessionFactory" />
 	</bean>
 
+	<context:component-scan base-package="org.spring.blog.board.service"></context:component-scan>
+	<context:component-scan base-package="org.spring.blog.board.dao"></context:component-scan>
+	<context:component-scan base-package="org.spring.blog.board.vo"></context:component-scan>
 </beans>
