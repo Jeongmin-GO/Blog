@@ -6,6 +6,7 @@
 			bno,
 			title,
 			view_cnt,
+			reg_id,
 			reg_date
 		FROM
 			board
