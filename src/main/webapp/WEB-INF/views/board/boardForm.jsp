@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/views/layout/header.jsp" %>
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +25,21 @@
 		e.preventDefault();
 		location.href="${pageContext.request.contextPath}/board/selectBoardList";
 	});
+	
+	$(document).ready(function(){
+		var mode = '<c:out value="${mode}"/>';
+		if ( mode == 'edit'){
+			
+			//입력 폼 셋팅
+			$("#reg_id").prop('readonly', true);
+			$("input:hidden[name='bno']").val('<c:out value="${boardDetail.bno}"/>');
+			$("input:hidden[name='mode']").val('<c:out value="${mode}"/>');
+			$("#reg_id").val('<c:out value="${boardDetail.reg_id}"/>');
+			$("#title").val('<c:out value="${boardDetail.title}"/>');
+			$("#content").val('<c:out value="${boardDetail.content}"/>');
+			$("#tag").val('<c:out value="${boardDetail.tag}"/>');
+		}
+	});
 </script>
 
 </head>
@@ -31,27 +48,30 @@
 
 		<div class="container" role="main">
 			<h2>board Form</h2>
-			<form name="form" id="form" role="form" method="post" action="${pageContext.request.contextPath}/board/insertBoard">
+			<form:form name="form" id="form" role="form" modelAttribute="boardVO" method="post" action="${pageContext.request.contextPath}/board/insertBoard">
+				<form:hidden path="bno" /> <!-- BoardController에서 넘어온 boardVO의 프로퍼티 bno  -->
+				<input type="hidden" name="mode" /> <!-- boardVO는 mode라는 프로퍼티를 갖고 있지 않기 때문에, 일반적인 form 태그 사용 -->
+				
 				<div class="mb-3">
 					<label for="title">제목</label>
-					<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
+					<form:input path="title" class="form-control" id="title" placeholder="제목을 입력해 주세요" />
 				</div>
 
 				<div class="mb-3">
 					<label for="reg_id">작성자</label>
-					<input type="text" class="form-control" name="reg_id" id="reg_id" placeholder="이름을 입력해 주세요">
+					<form:input path="reg_id" class="form-control" id="reg_id" placeholder="이름을 입력해 주세요" />
 				</div>
 
 				<div class="mb-3">
 					<label for="content">내용</label>
-					<textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
+					<form:textarea path="content" class="form-control" rows="5" id="content" placeholder="내용을 입력해 주세요" />
 				</div>
 
 				<div class="mb-3">
 					<label for="tag">TAG</label>
-					<input type="text" class="form-control" name="tag" id="tag" placeholder="태그를 입력해 주세요">
+					<form:input path="tag" class="form-control" id="tag" placeholder="태그를 입력해 주세요" />
 				</div>
-			</form>
+			</form:form>
 			<div >
 				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
 				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>

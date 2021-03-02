@@ -26,13 +26,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/boardForm")
-	public String boardForm() {
+	public String boardForm(@ModelAttribute("boardVO") BoardVO vo, Model model) {
 		return "board/boardForm";
 	}
 	
 	@RequestMapping(value="/insertBoard")
-	public String insertBoardList(@ModelAttribute("BoardVO") BoardVO vo, RedirectAttributes rttr)throws Exception{
-		service.insertBoard(vo);
+	public String insertBoardList(@ModelAttribute("BoardVO") BoardVO vo, @RequestParam("mode") String mode, RedirectAttributes rttr)throws Exception{
+		
+		if(mode.equals("edit")) {
+			service.updateBoard(vo);
+		}else {
+			service.insertBoard(vo);
+		}
+		
 		return "redirect:/board/selectBoardList";
 	}
 	
@@ -40,5 +46,14 @@ public class BoardController {
 	public String selectBoardDetail(Model model, @RequestParam("bno") int bno) throws Exception{
 		model.addAttribute("boardDetail", service.selectBoardDetail(bno));
 		return "board/boardDetail";
+	}
+	
+	@RequestMapping(value="/editForm", method=RequestMethod.GET)
+	public String editForm(@RequestParam("bno") int bno, @RequestParam("mode") String mode, Model model) throws Exception{
+		model.addAttribute("boardDetail", service.selectBoardDetail(bno));
+		model.addAttribute("mode", mode);
+		model.addAttribute("boardVO", new BoardVO());
+		System.out.println("#############boardDetail + " + model.equals("boardDetail"));
+		return "board/boardForm";
 	}
 }

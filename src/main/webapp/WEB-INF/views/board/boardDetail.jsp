@@ -10,8 +10,17 @@
 <meta charset="UTF-8">
 <title>Board</title>
 <script>
+	//목록이동
 	$(document).on('click', '#btnList', function(){
 		location.href="${pageContext.request.contextPath}/board/selectBoardList";
+	});
+	
+	//수정버튼 클릭 이벤트
+	$(document).on('click', '#btnUpdate', function(){
+		var url="${pageContext.request.contextPath}/board/editForm";
+		url = url+ "?bno=" + ${boardDetail.bno} + "&mode=edit";
+		
+		location.href=url;
 	});
 </script>
 </head>
