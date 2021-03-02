@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -33,5 +34,11 @@ public class BoardController {
 	public String insertBoardList(@ModelAttribute("BoardVO") BoardVO vo, RedirectAttributes rttr)throws Exception{
 		service.insertBoard(vo);
 		return "redirect:/board/selectBoardList";
+	}
+	
+	@RequestMapping(value="/selectBoardDetail", method=RequestMethod.GET)
+	public String selectBoardDetail(Model model, @RequestParam("bno") int bno) throws Exception{
+		model.addAttribute("boardDetail", service.selectBoardDetail(bno));
+		return "board/boardDetail";
 	}
 }

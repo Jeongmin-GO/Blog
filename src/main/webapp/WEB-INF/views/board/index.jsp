@@ -20,6 +20,12 @@
 		e.preventDefault();
 		location.href = "${pageContext.request.contextPath}/board/boardForm";
 	});
+	
+	function fn_contentView(bno){
+		var url = "${pageContext.request.contextPath}/board/selectBoardDetail";
+		url = url + "?bno=" + bno;
+		location.href= url;
+	}
 	</script>
 </head>
 <body>
@@ -53,7 +59,11 @@
 								<c:forEach var="list" items="${boardList}">
 									<tr>
 										<td><c:out value="${list.bno}"/></td>
-										<td><c:out value="${list.title}"/></td>
+										<td>
+											<a href="#" onClick="fn_contentView(<c:out value="${list.bno}"/>)">
+												<c:out value="${list.title}"/>
+											</a>
+										</td>
 										<td><c:out value="${list.reg_id}"/></td>
 										<td><c:out value="${list.view_cnt}"/></td>
 										<td><c:out value="${list.reg_date}"/></td>
