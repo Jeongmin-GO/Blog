@@ -1,6 +1,7 @@
 package org.spring.blog.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -16,5 +17,10 @@ public class BoardServiceImpl implements BoardService{
 	
 	public List<BoardVO> selectBoardList() throws Exception{
 		return boardDAO.selectBoardList();
+	}
+	
+	@Override
+	public void insertBoard(BoardVO vo) throws Exception{
+		boardDAO.insertBoard(vo);
 	}
 }
