@@ -10,6 +10,7 @@
 			reg_date
 		FROM
 			board
+		ORDER BY reg_date DESC
 	</select>
 	
 	<select id="selectBoardDetail" resultType="org.spring.blog.board.vo.BoardVO">
