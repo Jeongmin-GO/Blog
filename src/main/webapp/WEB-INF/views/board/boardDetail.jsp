@@ -22,6 +22,13 @@
 		
 		location.href=url;
 	});
+	
+	//삭제 버튼 클릭 이벤트
+	$(document).on('click', '#btnDelete', function(){
+		var url="${pageContext.request.contextPath}/board/deleteBoard";
+		url = url + "?bno=" + "${boardDetail.bno}";
+		location.href=url;
+	});
 </script>
 </head>
 <body>

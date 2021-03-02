@@ -53,7 +53,12 @@ public class BoardController {
 		model.addAttribute("boardDetail", service.selectBoardDetail(bno));
 		model.addAttribute("mode", mode);
 		model.addAttribute("boardVO", new BoardVO());
-		System.out.println("#############boardDetail + " + model.equals("boardDetail"));
 		return "board/boardForm";
+	}
+	
+	@RequestMapping(value="/deleteBoard", method=RequestMethod.GET)
+	public String deleteBoard(RedirectAttributes rttr, @RequestParam("bno")int bno) throws Exception{
+		service.deleteBoard(bno);
+		return "redirect:/board/selectBoardList";
 	}
 }
