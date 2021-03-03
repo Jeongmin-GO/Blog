@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spring.blog.board.service.BoardService;
 import org.spring.blog.board.vo.BoardVO;
+import org.spring.common.Pagination;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,11 +23,28 @@ public class BoardController {
 	@Inject
 	private BoardService service;
 	
+	/*
+	 * @RequestMapping(value="/selectBoardList", method=RequestMethod.GET) public
+	 * String selectBoardList(Model model) throws Exception{
+	 * model.addAttribute("boardList", service.selectBoardList()); return
+	 * "board/index"; }
+	 */
+	
 	@RequestMapping(value="/selectBoardList", method=RequestMethod.GET)
-	public String selectBoardList(Model model) throws Exception{
-		model.addAttribute("boardList", service.selectBoardList());
+	public String selectBoardList(Model model, @RequestParam(required=false, defaultValue="1") int page,
+			@RequestParam(required=false, defaultValue="1") int range) throws Exception{
+		//전체 게시글 개수
+		int listCnt = service.getBoardListCnt();
+		
+		//pagination 객체 생성
+		Pagination pagination = new Pagination();
+		pagination.pageInfo(page, range, listCnt);
+		
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("boardList", service.selectBoardList(pagination));
 		return "board/index";
 	}
+	
 	
 	@RequestMapping(value="/boardForm")
 	public String boardForm(@ModelAttribute("boardVO") BoardVO vo, Model model) {

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spring.blog.board.dao.BoardDAO;
 import org.spring.blog.board.vo.BoardVO;
+import org.spring.common.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,16 +27,17 @@ public class BoardDAOTest {
 	@Test
 	@Ignore
 	public void testGetBoardList() throws Exception {
-
-		List<BoardVO> boardList = boardDAO.selectBoardList();
-		logger.info("\n Board List \n ");
-		if (boardList.size() > 0) {
-			for (BoardVO list : boardList) {
-				logger.info(list.title);
-			}
-		} else {
-			logger.info("데이터가 없습니다.");
-		}
+//		selectBoardList 파라미터로 나타나는 오류때문에 임시 주석처리
+		
+//		List<BoardVO> boardList = boardDAO.selectBoardList();
+//		logger.info("\n Board List \n ");
+//		if (boardList.size() > 0) {
+//			for (BoardVO list : boardList) {
+//				logger.info(list.title);
+//			}
+//		} else {
+//			logger.info("데이터가 없습니다.");
+//		}
 	}
 
 	@Test
@@ -65,16 +67,22 @@ public class BoardDAOTest {
 
 		BoardVO boardVO = new BoardVO();
 		boardVO.setCategory("1");
-		boardVO.setTitle("첫번째 게시물 입니다.");
-		boardVO.setContent("첫번째 게시물입니다.");
+//		boardVO.setTitle("첫번째 게시물 입니다.");
+//		boardVO.setContent("첫번째 게시물입니다.");
 		boardVO.setTag("1");
 		boardVO.setReg_id("1");
-		int result = boardDAO.insertBoard(boardVO);
-		logger.info("\n Insert Board Result " + result);
-		if (result == 1) {
-			logger.info("\n 게시물 등록 성공 ");
-		} else {
-			logger.info("\n 게시물 등록 실패");
+		
+		for(int i =1; i< 1234; i++) {
+			boardVO.setTitle( i + "번째 게시물 입니다.");
+			boardVO.setContent( i + "번째 게시물 입니다.");
+			int result = boardDAO.insertBoard(boardVO);
+			
+			logger.info("\n Insert Board Result " + result);
+			if (result == 1) {
+				logger.info("\n 게시물 등록 성공 ");
+			} else {
+				logger.info("\n 게시물 등록 실패");
+			}
 		}
 	}
 

@@ -10,7 +10,8 @@
 			reg_date
 		FROM
 			board
-		ORDER BY reg_date DESC
+		ORDER BY bno DESC
+		LIMIT #{startList}, #{listSize}
 	</select>
 	
 	<select id="selectBoardDetail" resultType="org.spring.blog.board.vo.BoardVO">
@@ -49,4 +50,9 @@
 		WHERE
 			bno = #{bno}
 	</update>
+	
+	<select id="getBoardListCnt" resultType="int">
+		SELECT COUNT(*) as listCnt
+		FROM board
+	</select>
 </mapper>

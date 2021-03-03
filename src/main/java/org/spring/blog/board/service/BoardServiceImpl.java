@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.spring.blog.board.dao.BoardDAO;
 import org.spring.blog.board.vo.BoardVO;
 import org.spring.blog.error.controller.NotFoundException;
+import org.spring.common.Pagination;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +18,8 @@ public class BoardServiceImpl implements BoardService{
 	@Inject
 	private BoardDAO boardDAO;
 	
-	public List<BoardVO> selectBoardList() throws Exception{
-		return boardDAO.selectBoardList();
+	public List<BoardVO> selectBoardList(Pagination pagination) throws Exception{
+		return boardDAO.selectBoardList(pagination);
 	}
 	
 	@Override
@@ -54,5 +55,10 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void deleteBoard(int bno) throws Exception {
 		boardDAO.deleteBoard(bno);
+	}
+
+	@Override
+	public int getBoardListCnt() throws Exception {
+		return boardDAO.getBoardListCnt();
 	}
 }
