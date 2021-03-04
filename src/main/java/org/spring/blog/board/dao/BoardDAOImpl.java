@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.spring.blog.board.vo.BoardVO;
 import org.spring.common.Pagination;
+import org.spring.common.Search;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,8 +19,8 @@ public class BoardDAOImpl implements BoardDAO{
 	private static final String namespace = "org.spring.board.BoardMapper.";
 	
 	@Override
-	public List<BoardVO> selectBoardList(Pagination pagination) throws Exception{
-		return sqlSession.selectList(namespace+"selectBoardList", pagination);
+	public List<BoardVO> selectBoardList(Search search) throws Exception{
+		return sqlSession.selectList(namespace+"selectBoardList", search);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public int getBoardListCnt() throws Exception {
-		return sqlSession.selectOne(namespace+"getBoardListCnt");
+	public int getBoardListCnt(Search search) throws Exception {
+		return sqlSession.selectOne(namespace+"getBoardListCnt", search);
 	}
 }

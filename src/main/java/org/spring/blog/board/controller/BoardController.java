@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.spring.blog.board.service.BoardService;
 import org.spring.blog.board.vo.BoardVO;
 import org.spring.common.Pagination;
+import org.spring.common.Search;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,16 +33,31 @@ public class BoardController {
 	
 	@RequestMapping(value="/selectBoardList", method=RequestMethod.GET)
 	public String selectBoardList(Model model, @RequestParam(required=false, defaultValue="1") int page,
-			@RequestParam(required=false, defaultValue="1") int range) throws Exception{
+			@RequestParam(required=false, defaultValue="1") int range,
+			@RequestParam(required=false, defaultValue="title") String searchType,
+			@RequestParam(required=false) String keyword,
+			@ModelAttribute("search") Search search) throws Exception{
+		
+//		Search search = new Search();
+		model.addAttribute("search", search);
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
 		//전체 게시글 개수
-		int listCnt = service.getBoardListCnt();
+		int listCnt = service.getBoardListCnt(search);
+		
+		//검색
+		search.pageInfo(page, range, listCnt);
 		
 		//pagination 객체 생성
-		Pagination pagination = new Pagination();
-		pagination.pageInfo(page, range, listCnt);
+//		Pagination pagination = new Pagination();
+//		pagination.pageInfo(page, range, listCnt);
 		
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("boardList", service.selectBoardList(pagination));
+		//페이징
+		model.addAttribute("pagination", search);
+		
+		//게시글화면출력
+		model.addAttribute("boardList", service.selectBoardList(search));
 		return "board/index";
 	}
 	

@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.spring.blog.board.vo.BoardVO;
 import org.spring.common.Pagination;
+import org.spring.common.Search;
 
 public interface BoardDAO {
-	public List<BoardVO> selectBoardList(Pagination pagination) throws Exception;
+	public List<BoardVO> selectBoardList(Search search) throws Exception;
 	
 	public BoardVO selectBoardDetail(int bno) throws Exception;
 	
@@ -19,5 +20,5 @@ public interface BoardDAO {
 	public int updateViewCnt(int bno) throws Exception;
 	
 	//총 게시글 개수 확인
-	public int getBoardListCnt() throws Exception;
+	public int getBoardListCnt(Search search) throws Exception;
 }

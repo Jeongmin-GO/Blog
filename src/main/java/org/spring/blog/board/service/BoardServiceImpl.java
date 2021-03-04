@@ -9,6 +9,7 @@ import org.spring.blog.board.dao.BoardDAO;
 import org.spring.blog.board.vo.BoardVO;
 import org.spring.blog.error.controller.NotFoundException;
 import org.spring.common.Pagination;
+import org.spring.common.Search;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +19,8 @@ public class BoardServiceImpl implements BoardService{
 	@Inject
 	private BoardDAO boardDAO;
 	
-	public List<BoardVO> selectBoardList(Pagination pagination) throws Exception{
-		return boardDAO.selectBoardList(pagination);
+	public List<BoardVO> selectBoardList(Search search) throws Exception{
+		return boardDAO.selectBoardList(search);
 	}
 	
 	@Override
@@ -58,7 +59,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int getBoardListCnt() throws Exception {
-		return boardDAO.getBoardListCnt();
+	public int getBoardListCnt(Search search) throws Exception {
+		return boardDAO.getBoardListCnt(search);
 	}
 }

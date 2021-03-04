@@ -10,6 +10,17 @@
 			reg_date
 		FROM
 			board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='title' and keyword != null and keyword != ''">
+				AND title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType=='content' and keyword != null and keyword !=''">
+				AND content like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType=='reg_id'and keyword != null and keyword !=''">
+				AND reg_id like CONCAT('%', #{keyword}, '%')
+			</if>
+		</trim>
 		ORDER BY bno DESC
 		LIMIT #{startList}, #{listSize}
 	</select>
@@ -54,5 +65,18 @@
 	<select id="getBoardListCnt" resultType="int">
 		SELECT COUNT(*) as listCnt
 		FROM board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword !=null and keyword != ''">
+				<if test="searchType=='title'">
+					AND title like CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="searchType=='content'">
+					AND content like CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="searchType=='reg_id'">
+					AND reg_id like CONCAT('%', #{keyword}, '%')
+				</if>
+			</if>
+		</trim>
 	</select>
 </mapper>

@@ -23,6 +23,16 @@
 		location.href = "${pageContext.request.contextPath}/board/boardForm";
 	});
 	
+	$(document).on('click', '#btnSearch', function(e){
+		e.preventDefault();
+		var url="${pageContext.request.contextPath}/board/selectBoardList";
+		/* var url="${selectBoardList}"; */
+		url = url + "?searchType=" + $('#searchType').val();
+		url = url + "&keyword=" + $('#keyword').val();
+		location.href=url;
+		console.log(url);
+	});
+	
 	function fn_contentView(bno){
 		var url = "${pageContext.request.contextPath}/board/selectBoardDetail";
 		url = url + "?bno=" + bno;
@@ -46,7 +56,9 @@
 		var url = "${pageContext.request.contextPath}/board/selectBoardList";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
-
+		url = url + "&searchType=" + searchType;
+		url = url + "&keyword=" + keyword;
+		console.log(url);
 		location.href= url;
 	}
 	
@@ -61,6 +73,8 @@
 		
 		location.href= url;
 	}
+	
+	
 	</script>
 </head>
 <body>
@@ -94,6 +108,7 @@
 								<c:forEach var="list" items="${boardList}">
 									<tr>
 										<td><c:out value="${list.bno}"/></td>
+										
 										<td>
 											<a href="#" onClick="fn_contentView(<c:out value="${list.bno}"/>)">
 												<c:out value="${list.title}"/>
@@ -121,7 +136,7 @@
 						
 						<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
 							<li class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
-							<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a>
+							<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}', '${search.searchType}', '${search.keyword}')"> ${idx} </a>
 							</li>
 						</c:forEach>
 						
@@ -133,6 +148,24 @@
 					</ul>
 				</div>
 				<!-- pagination(e) -->
+				
+				<!-- search(s) -->
+				<div class="form-group row justify-content-center">
+					<div class="w100" style="padding-right:10px">
+						<select class="form-control form-control-sm" name="searchType" id="searchType">
+							<option value="title">제목 </option>
+							<option value="content">내용</option>
+							<option value="reg_id">작성자</option>
+						</select>
+					</div>
+					<div class="w300" style="padding-right:10px">
+						<input type="text" class="form-control form-control-sm" name="keyword" id="keyword">
+					</div>
+					<div>
+						<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch">검색</button>
+					</div>
+				</div>
+				<!-- search(e) -->
 		</div>
 	</div>
 </article>
