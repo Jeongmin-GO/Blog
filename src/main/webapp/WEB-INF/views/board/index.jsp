@@ -18,6 +18,8 @@
 		}
 	</style>
 	<script>
+	<c:url var="selectBoardListURL" value="/board/selectBoardList"></c:url>
+	
 	$(document).on('click', '#btnWriteForm', function(e){
 		e.preventDefault();
 		location.href = "${pageContext.request.contextPath}/board/boardForm";
@@ -25,8 +27,8 @@
 	
 	$(document).on('click', '#btnSearch', function(e){
 		e.preventDefault();
-		var url="${pageContext.request.contextPath}/board/selectBoardList";
-		/* var url="${selectBoardList}"; */
+		/* var url="${pageContext.request.contextPath}/board/selectBoardList"; */
+		var url="${selectBoardList}";
 		url = url + "?searchType=" + $('#searchType').val();
 		url = url + "&keyword=" + $('#keyword').val();
 		location.href=url;
@@ -44,7 +46,7 @@
 		var page = ((range-2)*rangeSize)+1;
 		var range = range - 1;
 		
-		var url = "${pageContext.request.contextPath}/board/selectBoardList";
+		var url = "${selectBoardList}";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		
@@ -53,7 +55,7 @@
 	
 	//페이지 번호 클릭
 	function fn_pagination(page, range, rangeSize, searchType, keyword){
-		var url = "${pageContext.request.contextPath}/board/selectBoardList";
+		var url = "${selectBoardList}";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + searchType;
@@ -67,7 +69,7 @@
 		var page = parseInt((range*rangeSize))+1;
 		var range = parseInt(range)+1;
 		
-		var url = "${pageContext.request.contextPath}/board/selectBoardList";
+		var url = "${selectBoardList}";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		
