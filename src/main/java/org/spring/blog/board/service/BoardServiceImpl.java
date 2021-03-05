@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.spring.blog.board.dao.BoardDAO;
 import org.spring.blog.board.vo.BoardVO;
+import org.spring.blog.board.vo.ReplyVO;
 import org.spring.blog.error.controller.NotFoundException;
 import org.spring.common.Pagination;
 import org.spring.common.Search;
@@ -61,5 +62,28 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int getBoardListCnt(Search search) throws Exception {
 		return boardDAO.getBoardListCnt(search);
+	}
+	
+	//댓글 리스트
+	@Override
+	public List<ReplyVO> selectReplyList(int bno) throws Exception {
+		return boardDAO.selectReplyList(bno);
+	}
+
+	@Override
+	public int insertReply(ReplyVO replyVO) throws Exception {
+		return boardDAO.insertReply(replyVO);
+	}
+
+	@Override
+	public int updateReply(ReplyVO replyVO) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDAO.updateReply(replyVO);
+	}
+
+	@Override
+	public int deleteReply(int rno) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDAO.deleteReply(rno);
 	}
 }

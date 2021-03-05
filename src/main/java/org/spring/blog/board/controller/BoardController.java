@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spring.blog.board.service.BoardService;
 import org.spring.blog.board.vo.BoardVO;
+import org.spring.blog.board.vo.ReplyVO;
 import org.spring.common.Pagination;
 import org.spring.common.Search;
 import org.springframework.stereotype.Controller;
@@ -82,6 +83,7 @@ public class BoardController {
 	@RequestMapping(value="/selectBoardDetail", method=RequestMethod.GET)
 	public String selectBoardDetail(Model model, @RequestParam("bno") int bno) throws Exception{
 		model.addAttribute("boardDetail", service.selectBoardDetail(bno));
+		model.addAttribute("replyVO", new ReplyVO());
 		return "board/boardDetail";
 	}
 	
