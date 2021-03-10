@@ -62,7 +62,6 @@ public class BoardDAOTest {
 	}
 
 	@Test
-	@Ignore
 	public void testInsertBoard() throws Exception {
 
 		BoardVO boardVO = new BoardVO();
